@@ -1,20 +1,37 @@
-// BIO → CUBIK — weitere Türe — mapping was du im Kopf hattest
-// window.BIO_DATA = {metrics:{concentration_ng_per_uL:62, purity_260_280:1.92, contamination_pct:0.005, integrity_RIN:8.2}}
-import {BIO} from './BIO.js';
-import {gridPoints} from './NC_space.js';
-
-const a = BIO.USER.analysis(); // {quality:{score, grade, norm:{cNorm,pNorm,rNorm,clean}}, math:{arg,xarg,arg3te}, eco_wert}
-const slots = gridPoints(9,9,1); // 81 Slots außen
-// cNorm = concentration/100 → radiusFactor — breite höhe egal immer Dreieck
-const radiusFactor = a.quality.norm.cNorm * 0.4 + 0.1; // 0.1-0.5 — 35% window — Waanis Schale springt
-// pNorm = purity/2.2 → Farbe — grade GOOD = gelb — EXCELLENT grün
-const color = a.quality.grade==="EXCELLENT"?0x33ff66 : a.quality.grade==="GOOD"?0xffcc33 : 0xff4444;
-// clean = 1-contam → opacity — egal nutzbar
-const opacity = a.quality.norm.clean; // 0.995
-// RIN → Höhe Y — 8.2 → 8.2*0.15
-const y = a.raw? a.raw.integrity_RIN*0.15 : 1.2; // 1.23
-
-// arg = c/p = 32.2917 — breite X
-// xarg = (RIN*p)/c = 0.2537 — tiefe Z
-// arg3te = RIN*(1-contam) = 8.159 — cubik ram nach innen 27▣ — 8.159 ~ 9-1 = 8 — Regel 9-1 innen
-// eco_wert = score*0.12 + arg3te*2 — ECO-Wert-Bildung — Lebenszeichen-Deuter
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>iki1uc — index — STATION v81 — 81◆→27▣ — BIO→CUBIK</title>
+<style>html,body{margin:0;height:100%;background:#050805;color:#b6ffb6;font-family:Calibri,system-ui}#c{width:100%;height:100%;display:block}#h{position:fixed;left:10px;top:10px;background:#0a120a;border:1px solid #1c2e1c;padding:8px 10px;border-radius:8px;font-size:11px;line-height:1.5}a{color:#7dd;text-decoration:none}</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="h"><span id="s">loading BIO→CUBIK</span><br><a href="./bio.js">bio.js</a> · <a href="./bio.ID.js">bio.ID.js</a> · <a href="./ID.html">ID</a> · <a href="./README.md">README</a></div>
+<script type="module">
+import {bioToCubik} from './index.js';
+import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+const canvas=document.getElementById('c');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true}); renderer.setSize(innerWidth,innerHeight);
+const scene=new THREE.Scene(); scene.background=new THREE.Color(0x050805);
+const camera=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,0.1,100); camera.position.set(4,4,4);
+scene.add(new THREE.AmbientLight(0xffffff,0.7));
+const b=bioToCubik();
+const g=new THREE.Group();
+b.slots.forEach(p=>{
+  const isInside = Math.abs(p.pos.x)<=1.5 && Math.abs(p.pos.z)<=1.5; // 27 innen
+  const col = isInside ? b.color : 0x333333;
+  const m=new THREE.Mesh(new THREE.BoxGeometry(0.18,0.18,0.18), new THREE.MeshStandardMaterial({color:col, transparent:true, opacity:b.opacity}));
+  m.position.set(p.pos.x, b.gates.g3? b.y*0.1 : 0, p.pos.z);
+  g.add(m);
+});
+scene.add(g);
+function loop(){requestAnimationFrame(loop); g.rotation.y+=0.001; renderer.render(scene,camera);
+  document.getElementById('s').textContent=`${b.a.quality.grade} score ${b.a.quality.score} arg ${b.a.math.arg.toFixed(1)} cubikInside ${b.cubikInside.toFixed(2)} eco ${b.eco_wert.toFixed(1)} radius ${b.radiusFactor.toFixed(3)}~0.35 gates ${b.gates.all?'alle offen':'wenn nicht dann nicht'} — 81◆→△→27▣→3↺`;
+}
+loop();
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight);});
+</script>
+</body>
+</html>
