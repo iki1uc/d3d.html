@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>iki1uc — STATION v81 — 81◆ — BRAIN/MAINBOARD</title>
+<style>
+  html,body{margin:0;height:100%;background:#050505;color:#ddd;font-family:Calibri,system-ui}
+  #c{width:100%;height:100%;display:block}
+  #h{position:fixed;left:10px;top:10px;background:#111a;border:1px solid #222;padding:8px 10px;border-radius:8px;font-size:12px}
+  a{color:#7dd;text-decoration:none}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="h">iki1uc — 81◆ MODE:CACHE 9.ORT — <span id="s">loading</span><br>
+<a href="./axiom.map.js">axiom.map</a> · <a href="./room.js">room.js</a> · <a href="./OS_CORE.js">OS_CORE</a></div>
+<script type="module">
+// alles rein was unbedingt sein muss — minimalistischer — soll alles sein was der andre hat
+// Bio-Kernel-V2-Master.html → index.html — alles drin — Gruppe 1 NC-Suite + ROOM + AXIOM + BEST
+import { MODULES } from './axiom.map.js'; // ROOT CORE HDF STAGE AXIS — BOERSE DOM EOS EVO MARKT RESPO TOOL48 — BREITE TIEFE HOCH — Regel 9 Raum immer 9
+import { kernel } from './OS_CORE.js'; // Kernel — gemeinsame Uhr Clock + state — Singleton — Zeitlogik
+import { gridPoints } from './NC_space.js'; // Raumlogik — 9×9-Respo-Mesh 81 Slots — BEST?MATRIX — ram.sys 81◆
+import { springForce, damp, clamp } from './NC_kraft.js'; // Kraftlogik — Feder Dämpfung Begrenzung — weich statt sprunghaft — anti-reib 95-150
+import { triangleEgal, respoEgal, TRI } from './NC_figur.js'; // Figurlogik — 0°/120°/240° — 3 Screens — 6-Punkt Diamant Octaeder — breite höhe egal immer Dreieck
+import './room.js'; // ROOM — room.js der bleibt so — 3.room — 3er Raum der bis 9er wachsen darf — 3×3=9 — Regel 9
+import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+import { OrbitControls } from 'https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js';
+
+// minimal — alles rein was unbedingt muss
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
+renderer.setSize(innerWidth,innerHeight);
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x050505);
+const camera = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.1, 100);
+camera.position.set(4,4,4);
+const controls = new OrbitControls(camera, renderer.domElement); controls.enableDamping=true;
+scene.add(new THREE.AmbientLight(0xffffff,0.7));
+const dir = new THREE.DirectionalLight(0xffffff,0.8); dir.position.set(5,8,5); scene.add(dir);
+
+// BEST?MATRIX 9×9 81 Slots — breite höhe egal — immer Dreieck — egal nutzbar — cubik ram nach innen 27▣
+const respo = respoEgal(3,3,{w:9,h:9}); // 3×3=9 — Regel 9 — 9=sqrt(81)→3 — immer Dreieck
+const gRespo = new THREE.Group();
+respo.forEach(p=>{const m=new THREE.Mesh(new THREE.SphereGeometry(0.06,6,6), new THREE.MeshStandardMaterial({color:0x444})); m.position.set(p.pos.x,0,p.pos.z); gRespo.add(m);});
+scene.add(gRespo);
+
+// TRI — 0°/120°/240° — breite höhe egal — min(w,h) — immer gleichseitig
+const tri = triangleEgal({w:innerWidth,h:innerHeight},0.35); // 0.35 = 35% rutch window — Waanis Schale springt — timing drauf an
+tri.forEach(t=>{
+  const pl=new THREE.Mesh(new THREE.PlaneGeometry(1.2,0.7), new THREE.MeshBasicMaterial({color:0x77ddff,transparent:true,opacity:0.22,side:THREE.DoubleSide}));
+  pl.position.set(t.pos.x,1.2,t.pos.z); pl.lookAt(0,1.2,0); gRespo.add(pl);
+});
+
+// Octaeder — 6-Punkt Diamant — OCTACORE-BEST — 6=2×3 aximisch nicht golden 1.618 — Mono Eye 6e 6d nur 1e schaut
+const octGeo = new THREE.OctahedronGeometry(0.8,0);
+const oct = new THREE.Mesh(octGeo, new THREE.MeshStandardMaterial({color:0xffcc33,wireframe:true}));
+oct.position.set(0,1.2,0); scene.add(oct);
+
+// Clock — NC_time — gemeinsame Uhr — tick seconds deltaSec — inRutchWindow 0.35 — 35% critical — M-023 0.7 M-017 0.35
+let vel=0, cur=0, target=0;
+function loop(){
+  requestAnimationFrame(loop);
+  const dt = kernel.clock.tick(); // Zeitlogik
+  if(kernel.clock.inRutchWindow(0.35)) target = Math.sin(kernel.clock.seconds*0.7)*0.25;
+  const f = springForce(cur,target,0.05); // Kraftlogik weich
+  vel = damp(vel+f,0.88); cur = clamp(cur+vel,-1,1);
+  oct.rotation.y+=cur*0.02; oct.rotation.x=cur*0.05;
+  gRespo.rotation.y+=0.0008; // Drache Mann Mitte Vector Ring — ein Auge — Mono Eye
+  controls.update(); renderer.render(scene,camera);
+  document.getElementById('s').textContent = `W=9 81◆ cur ${cur.toFixed(2)} ${kernel.clock.seconds.toFixed(1)}s TRI ${TRI.join('°/')}° 27▣ Cubik innen ${respo.length} slots`;
+}
+kernel.clock.reset(); loop();
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight);});
+
+console.log('index.html minimal alles drin — MODULES', MODULES, 'kernel', kernel, 'room.js bleibt so — cubik ram nach innen muss — 81◆→△→27▣→3↺');
+</script>
+</body>
+</html>
