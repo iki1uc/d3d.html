@@ -1,1 +1,18 @@
+// d.rom — d = 6 Figur beachtendes Osten Rechts — W(a(s(d(himmeldeutung)))) — d innen
+// HDF ROM-Speicher d — d/e/i/n/o/r/s/u/w — ROM — Osten Rechts
+export const D_ROM = { id:'d', axis:'d', dir:'Osten Rechts', figur:6, beachtendes:6, pos:{x:1,y:0,z:0}, color:0xff4444, note:'d.rom — d = 6 Figur beachtendes Osten Rechts — W(a(s(d)))' };
 
+// f.rom — f = Figur? Westen Links a=6 Figur — f = Figur
+export const F_ROM = { id:'f', axis:'a', dir:'Westen Links', figur:6, pos:{x:-1,y:0,z:0}, color:0x44ff44, note:'f.rom — a=6 Figur Westen Links — W(a(s(d))) — Figur' };
+
+// q.rom — q = Quelle? Quelle?
+export const Q_ROM = { id:'q', axis:'q', dir:'Quelle', figur:3, pos:{x:0,y:1,z:0}, color:0xffff44, note:'q.rom — Quelle — Drache Mann Mitte Vector Ring — 3↺' };
+
+// x.rom — x = BREITE X — BEST?AXIS
+export const X_ROM = { id:'x', axis:'X', dir:'BREITE', best:'BEST?AXIS', pos:{x:1,y:0,z:0}, color:0x77ddff, note:'x.rom — BREITE Achse Breite X — BEST?AXIS' };
+
+// y.rom — y = HOCH Y — BEST?TMP
+export const Y_ROM = { id:'y', axis:'Y', dir:'HOCH', best:'BEST?TMP', pos:{x:0,y:1,z:0}, color:0xff77ff, note:'y.rom — HOCH Achse Höhe Y — BEST?TMP' };
+
+// z.rom — z = TIEFE Z — BEST?LAGE
+export const Z_ROM = { id:'z', axis:'Z', dir:'TIEFE', best:'BEST?LAGE', pos:{x:0,y:0,z:1}, color:0x77ff77, note:'z.rom — TIEFE Achse Tiefe Z — BEST?LAGE' };
