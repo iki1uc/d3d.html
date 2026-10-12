@@ -3,35 +3,77 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>iki1uc — index — STATION v81 — 81◆→27▣ — BIO→CUBIK</title>
-<style>html,body{margin:0;height:100%;background:#050805;color:#b6ffb6;font-family:Calibri,system-ui}#c{width:100%;height:100%;display:block}#h{position:fixed;left:10px;top:10px;background:#0a120a;border:1px solid #1c2e1c;padding:8px 10px;border-radius:8px;font-size:11px;line-height:1.5}a{color:#7dd;text-decoration:none}</style>
+<title>iki1uc — index — STATION v81 — 81◆→27▣ — BIO→CUBIK — fix</title>
+<style>html,body{margin:0;height:100%;background:#050805;color:#b6ffb6;font-family:Calibri,system-ui}#c{width:100%;height:100%;display:block}#h{position:fixed;left:10px;top:10px;background:#0a120acc;border:1px solid #1c2e1c;padding:10px 12px;border-radius:8px;font-size:11px;line-height:1.6;max-width:380px}#h b{color:#ffcc33}a{color:#7dd;text-decoration:none}</style>
 </head>
 <body>
 <canvas id="c"></canvas>
-<div id="h"><span id="s">loading BIO→CUBIK</span><br><a href="./bio.js">bio.js</a> · <a href="./bio.ID.js">bio.ID.js</a> · <a href="./ID.html">ID</a> · <a href="./README.md">README</a></div>
+<div id="h"><b id="s">loading BIO→CUBIK</b><br><span id="d">init</span><br><br><a href="./bio.js">bio.js</a> · <a href="./bio.ID.js">bio.ID.js</a> · <a href="./ID.html">ID</a> · <a href="./README.md">README</a> · <a href="./index.js">index.js</a></div>
 <script type="module">
-import {bioToCubik} from './index.js';
+// fix — kein NC_space.js — kein NC_figur.js — alles inline — dann kommt mehr
+// bio.js ist da — aber fallback wenn nicht da
+let BIO=null;
+try{
+  const m = await import('./bio.js');
+  BIO = m.BIO || m.default || m;
+}catch(e){
+  console.warn('bio.js nicht ladbar — fallback BIO inline', e);
+  const BIO_DATA = {researcher:"Dr. Anna",sampleId:"S-2026-007",metrics:{concentration_ng_per_uL:62,purity_260_280:1.92,contamination_pct:0.005,integrity_RIN:8.2}};
+  const quality = (met)=>{
+    const c=Math.min(met.concentration_ng_per_uL/100,1), p=Math.min(met.purity_260_280/2.2,1), r=Math.min(met.integrity_RIN/10,1), clean=1-met.contamination_pct;
+    const score=(c*0.28+p*0.32+r*0.3+clean*0.1)*100;
+    const grade=score>=85?"EXCELLENT":score>=70?"GOOD":score>=50?"PASS":"LOW";
+    return {score:Number(score.toFixed(2)), grade, norm:{cNorm:c,pNorm:p,rNorm:r,clean}};
+  };
+  const math = (met)=>({arg:met.concentration_ng_per_uL/met.purity_260_280, xarg:(met.integrity_RIN*met.purity_260_280)/met.concentration_ng_per_uL, arg3te:met.integrity_RIN*(1-met.contamination_pct)});
+  BIO={USER:{analysis:()=>{const met=BIO_DATA.metrics; const q=quality(met); const ma=math(met); const eco=q.score*0.12+ma.arg3te*2; return {quality:q, math:ma, eco_wert:Number(eco.toFixed(2)), metrics:met, sampleId:BIO_DATA.sampleId, researcher:BIO_DATA.researcher};}, id:()=>({ID:"BIO-U&ME"})}};
+}
+
+function gridPoints(cols,rows,spacing=1){
+  const pts=[]; const off=(cols-1)*spacing/2;
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) pts.push({pos:{x:c*spacing-off, z:r*spacing-off}, row:r, col:c});
+  return pts;
+}
+
+const a = BIO.USER.analysis(); // quality 87.42 GOOD cNorm 0.62 etc
+const slots = gridPoints(9,9,1); // 81◆ außen — 81 Slots — Regel 9
+const slots27 = gridPoints(3,3,1); // 27? eigentlich 9 aber innen — 3×3=9 — Cubik 27 = 3×3×3
+const radiusFactor = a.quality.norm.cNorm*0.4+0.1; // 0.62*0.4+0.1=0.348 ~0.35 — 35% window
+const color = a.quality.grade==="EXCELLENT"?0x33ff66 : a.quality.grade==="GOOD"?0xffcc33 : 0xff4444;
+const opacity = a.quality.norm.clean; // 0.995
+const y = a.metrics.integrity_RIN*0.15; // 1.23
+const cubikInside = a.math.arg3te; // 8.159
+const eco = a.eco_wert; // 26.81
+const gates = {g1:a.quality.grade==="GOOD"||a.quality.grade==="EXCELLENT", g2:opacity>0.99, g3:cubikInside>8, g4:eco>20}; gates.all=gates.g1&&gates.g2&&gates.g3&&gates.g4;
+
+document.getElementById('s').textContent = `BIO→CUBIK ${a.quality.grade} ${a.quality.score} — alle Tore ${gates.all?'offen':'wenn nicht dann nicht'}`;
+document.getElementById('d').textContent = `arg ${a.math.arg.toFixed(2)} breite X — xarg ${a.math.xarg.toFixed(3)} tiefe Z — arg3te ${cubikInside.toFixed(2)} cubik innen 27▣ 9-1 — eco ${eco} — radiusFactor ${radiusFactor.toFixed(3)} ~0.35 — color #${color.toString(16)} — 81◆→△→27▣→3↺ — cubik ram nach innen muss`;
+
 import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
 const canvas=document.getElementById('c');
 const renderer=new THREE.WebGLRenderer({canvas,antialias:true}); renderer.setSize(innerWidth,innerHeight);
 const scene=new THREE.Scene(); scene.background=new THREE.Color(0x050805);
-const camera=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,0.1,100); camera.position.set(4,4,4);
-scene.add(new THREE.AmbientLight(0xffffff,0.7));
-const b=bioToCubik();
+const camera=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,0.1,100); camera.position.set(6,6,6); camera.lookAt(0,0,0);
+scene.add(new THREE.AmbientLight(0xffffff,0.8));
+const dir=new THREE.DirectionalLight(0xffffff,0.6); dir.position.set(5,8,5); scene.add(dir);
 const g=new THREE.Group();
-b.slots.forEach(p=>{
-  const isInside = Math.abs(p.pos.x)<=1.5 && Math.abs(p.pos.z)<=1.5; // 27 innen
-  const col = isInside ? b.color : 0x333333;
-  const m=new THREE.Mesh(new THREE.BoxGeometry(0.18,0.18,0.18), new THREE.MeshStandardMaterial({color:col, transparent:true, opacity:b.opacity}));
-  m.position.set(p.pos.x, b.gates.g3? b.y*0.1 : 0, p.pos.z);
-  g.add(m);
+slots.forEach(p=>{
+  const isInside = Math.abs(p.pos.x)<=1.1 && Math.abs(p.pos.z)<=1.1; // innen 9 — 3×3 — 27▣ Cubik innen
+  const col = isInside ? color : 0x1c2e1c;
+  const mat = new THREE.MeshStandardMaterial({color:col, transparent:true, opacity: isInside? opacity : 0.25});
+  const mesh = new THREE.Mesh(new THREE.BoxGeometry(0.2,0.2,0.2), mat);
+  mesh.position.set(p.pos.x, isInside? y*0.15 : 0, p.pos.z);
+  g.add(mesh);
 });
 scene.add(g);
-function loop(){requestAnimationFrame(loop); g.rotation.y+=0.001; renderer.render(scene,camera);
-  document.getElementById('s').textContent=`${b.a.quality.grade} score ${b.a.quality.score} arg ${b.a.math.arg.toFixed(1)} cubikInside ${b.cubikInside.toFixed(2)} eco ${b.eco_wert.toFixed(1)} radius ${b.radiusFactor.toFixed(3)}~0.35 gates ${b.gates.all?'alle offen':'wenn nicht dann nicht'} — 81◆→△→27▣→3↺`;
-}
+const oct = new THREE.Mesh(new THREE.OctahedronGeometry(0.8,0), new THREE.MeshStandardMaterial({color:color, wireframe:true, transparent:true, opacity:0.6}));
+oct.position.set(0,y*0.15+0.5,0); scene.add(oct);
+
+function loop(){ requestAnimationFrame(loop); g.rotation.y+=0.0015; oct.rotation.y+=0.005; renderer.render(scene,camera); }
 loop();
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight);});
+
+console.log('fix — BIO→CUBIK — gates',gates,'radiusFactor',radiusFactor,'color',color.toString(16),'a',a);
 </script>
 </body>
 </html>
