@@ -1,13 +1,13 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BIO_d3d — 81◆→27▣→BIO — weitere Tore</title><style>html,body{margin:0;height:100%;background:#050805;color:#b6ffb6;font-family:monospace}#c{width:100%;height:100%;display:block}#h{position:fixed;left:10px;top:10px;background:#0a120a;border:1px solid #1c2e1c;padding:8px 10px;border-radius:8px;font-size:11px;line-height:1.6}</style></head><body><canvas id="c"></canvas><div id="h"><span id="s">BIO loading</span><br><a href="./BIO.js">BIO.js</a> · <a href="./index.html">index.html</a> · <a href="./ID.html">ID</a></div>
-<script type="module">
-import {BIO} from './BIO.js'; // dein BIO.js v2 MASTER SLAVE ROOT USER — SU bleibt closed
-import {triangleEgal} from './NC_figur.js'; // breite höhe egal immer Dreieck
-window.BIO_DATA={researcher:"Dr. Anna",sampleId:"S-2026-007",metrics:{concentration_ng_per_uL:62,purity_260_280:1.92,contamination_pct:0.005,integrity_RIN:8.2}};
-const a=BIO.USER.analysis(); // quality score grade norm cNorm pNorm rNorm clean math arg xarg arg3te eco_wert
-// Tor Logik: wenn grade EXCELLENT/GOOD → Tor 1 offen — wenn clean>0.99 → Tor 2 offen — wenn arg3te>8 → Tor 3 Cubik innen offen — wenn eco_wert>20 → Tor 4 U&ME bridge offen
-const gates={g1:a.quality.grade==="EXCELLENT"||a.quality.grade==="GOOD", g2:a.quality.norm.clean>0.99, g3:a.math.arg3te>8, g4:a.eco_wert>20};
-document.getElementById('s').textContent=`BIO ${a.quality.grade} score ${a.quality.score} arg ${a.math.arg.toFixed(2)} xarg ${a.math.xarg.toFixed(3)} arg3te ${a.math.arg3te.toFixed(2)} eco ${a.eco_wert} — Gates ${JSON.stringify(gates)} — 81◆→△→27▣→3↺ — ${gates.g1&&gates.g2&&gates.g3&&gates.g4?'alle Tore offen':'wenn nicht dann nicht'} — cubik ram nach innen muss`;
-console.log('BIO',a,'GATES',gates,'triangleEgal breite höhe egal',triangleEgal({w:innerWidth,h:innerHeight},0.35));
-// weitere Türe: wenn alle Gates true → 27▣ Cubik innen leuchtet gelb ffcc33 → 81◆ außen grau 333 → 3↺ Mitte Drache Mann — Mono Eye schaut
-</script></body></html>
+# d3d.html — STATION v81 — 81◆ — 27▣ Cubik innen — .rom — BIO v2
+
+index.html — minimal alles drin — 81◆ MODE:CACHE 9.ORT — BRAIN/MAINBOARD — ROOM — triangleEgal breite höhe egal immer Dreieck — 81◆→△→27▣→3↺ — cubik ram nach innen muss
+ID.html / d3d.id.html / id.html — 81 Slots — 9×9-Respo-Mesh BEST?MATRIX — 27 gelb innen 54 grau außen
+bio.js — BIO v2 MASTER SLAVE ROOT USER — meta BIO-UNIT BIO U&ME — ROOT closed SU closed — MASTER id() — SLAVE sample() analysis() arg/xarg/arg3te quality score grade — USER uAndMe() verifyBIO() — window.BIO_DATA S-2026-007 Dr. Anna 62 ng/uL 1.92 0.005 8.2 — 87.42 GOOD 32.2917/0.2537/8.159 eco 26.81
+bio.ID.js — pure function bioID() — ID Text — kein DOM — javaliesiert aus bio.ID.html
+index.js — pure verifyBIO() — nutzt BIO.USER — returns JSON — kein DOM — Scientist Verification
+d.rom f.rom q.rom x.rom y.rom z.rom — HDF ROM-Speicher d/e/i/n/o/r/s/u/w — d=6 Osten Rechts beachtendes — f=6 Westen Links Figur — q=Quelle 3↺ Mitte Mono Eye — x=BREITE X BEST?AXIS — y=HOCH Y BEST?TMP — z=TIEFE Z BEST?LAGE — W(a(s(d(himmeldeutung)))) — W=9 Raum Norden Station — a=6 Figur Westen — s=6 Schach Feld Süden — d=6 beachtendes Osten — himmeldeutung Pfeffer Ort 970 PRO MLC 32GB 4000 729 Raum
+license — 6 Monat Tagtraum von diesen Augenblick — cubik ram nach innen muss — timing 35% M-023 0.7 M-017 0.35 — 6e 6d Mono Eye — room.js der bleibt so — 3er bis 9er Regel 9 — CBL BGH Hamburg Standard — alpha.BY.md by.md bugun.was→by.md
+
+Start: python -m http.server 8000 → index.html → ID.html → BIO_d3d.html
+
+Weitere Tore: Gates g1 GOOD g2 clean>0.99 g3 arg3te>8 g4 eco>20 — bei dir alle offen — 81◆→△→27▣→3↺ — wenn nicht dann nicht — bei dir offen — bereitsein reicht — nur das rein alte weg — bereit.
