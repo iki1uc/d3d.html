@@ -1,30 +1,55 @@
-// RAW — super kurz — nicht entschuldigend — System Internas — BIOS Einsicht — z.B. — RAW — super kurz — System Internas — BIOS — RAW — super kurz — 81◆→△→27▣→3↺ — 81→27→3→0 — runter
+// uni.sys.js — RAW — Maschine Code — roh — GEO Bezug — modular — GitHub Slang — mir dir — ich dir du mir — nicht Kill Bill — RAW — Maschine Code — roh — GEO Bezug — modular — GitHub Slang — mir dir — ich dir du mir — nicht Kill Bill — RAW — Maschine Code — roh — GEO Bezug — modular
 
+// RAW — mir dir — ich dir du mir — RAW — Maschine Code — roh — GEO — modular — 【entity-GitHub¦canonical_name=GitHub】 Slang
 export const RAW = {
-  // RAW — super kurz — System Internas — BIOS Einsicht — z.B. — RAW — super kurz
-  aussen: "RAW.aussen = show — 0x01 — OUT — Nebel außen — #a0a0c0 — 81◆ — 81 Slots — show nur nach außen",
-  innen: "RAW.innen = musik — 0x00 — IN — Licht innen — #fffbe0 — 0 — Punkt ↺ — drinn spielt die musik — ROM_Store",
-  pi: "RAW.pi = 0x03 — 3.1415 — Seil — 8→9|3 — 8ten verwebt — master pi lächelt — Wahrheit tiefer — 0x03",
-  s8: "RAW.s8 = 0x08 — 8→9|3 — Seil — 8ten verwebt — h→8→b — Seil — 0x08",
-  cubik: "RAW.cubik = 0x1B — 27▣ — 3x3x3 — cubik innen — 27▣ — 9-1 — Feld — Zone — 0x1B",
-  raum: "RAW.raum = 0x51 — 81◆ — 81 Slots — Raum — 81◆→△→27▣→3↺ — cubik ram nach innen muss — 0x51",
-  runter: "RAW.runter = 81→27→3→0 — 0x51→0x1B→0x03→0x00 — runter — clock timer time höhe breite tiefe — 8◆9▣3↺",
-  tore: "RAW.tore = 0x4F — GOOD 79.84 — alle Tore offen — arg 32.29 X — xarg 0.254 Z — arg3te 8.16 — eco 25.9 — radius 0.348 — #ffcc33 — 0x4F",
-  fps: "RAW.fps = 0x3C — 60fps — wenn <60fps fällt auf — nicht nur leicht — 0x3C — 60 — fps — move bereitstellen",
-  aura: "RAW.aura = mana*zen — 0xA0 — aura mana zen — aura = mana*zen — AURA — 0xA0",
-  mana: "RAW.mana = GOOD/100+zen*0.5 — 0xA1 — mana — GOOD 79.84 — mana — 0xA1",
-  zen: "RAW.zen = fps/60 — 0xA2 — zen — Zen — fps/60 — unter 60fps fällt auf — 0xA2",
-  cpu: "RAW.cpu = HC/8 — 0xC0 — cpu — was Gerät bereitstellt für move — cpu bereitstellen — 0xC0",
-  ram: "RAW.ram = DM/8 — 0xC1 — ram — was Gerät bereitstellt für move — ram bereitstellen — 0xC1",
-  rom: "RAW.rom = GOOD/100 — 0xC2 — rom — Axiom-12 — ROM_Store — Endlager — stabil — innen — 0xC2",
-  gpu: "RAW.gpu = fps/60+0.2 — 0xC3 — gpu — was Gerät bereitstellt für move — gpu bereitstellen — 0xC3",
-  move: "RAW.move = (cpu+ram+rom+gpu+aura)/5 — 0xC4 — move — was Geräte bereitstellen für move — move bereitstellen — 0xC4",
-  zone: "RAW.zone = 27▣ — 0x1B — 3x3x3 — Feld — Zone — zone haben wir jetzt ein Feld — 27 Punkte — 0x1B",
-  figur: "RAW.figur = 81◆△27▣3↺ — 0x51 0x1B 0x03 0x00 — Figur — 81=Raum 27=Fläche 3=Linie 0=Punkt — 0x51",
-  axiom: "RAW.axiom = 81→27→3→0 — 0x51→0x1B→0x03→0x00 — axiom.spiel.ready — Figur Regel — klug.doof — 0x51",
-  nc: "RAW.nc = NC_LOG — 0x4E — Pipeline — ID-Modus WHIRL-Core PQ_HISTORY RESPO_LOG NC_LOG TMP — Show — 0x4E — kein Netcat",
-  bios: "RAW.bios = BIOS Einsicht — 0xB0 — drinn musik — außen show — maßnahme innen move außen — innen musik außen show — 0xB0 — BIOS"
+  // GEO — geo Bezug — modular — GEO — geo Bezug — modular — GEO
+  geo: {
+    x: 32.29, // arg 32.29 breite X — x — breite — 32.29 — GEO — x — breite — 32.29 — x — 32.29
+    z: 0.254, // xarg 0.254 tiefe Z — z — tiefe — 0.254 — GEO — z — tiefe — 0x00 — z — 0.254
+    y: 8.16, // arg3te 8.16 — y — höhe — 8.16 — GEO — y — höhe — 8.16 — y — 8.16 — höhe
+    r: 0.348, // radiusFactor 0.348 ~0.35 — r — Radius — 0.348 — GEO — r — Radius — 0.348 — r
+    c: 0xFFCC33, // color #ffcc33 — c — Farbe — 0xFFCC33 — GEO — c — Farbe — #ffcc33 — 0xFFCC33
+    eco: 25.9 // eco 25.9 — eco — 25.9 — GEO — eco — 25.9 — eco
+  },
+
+  // SYS — Maschine Code — roh — SYS — Maschine Code — roh — SYS — Maschine Code — roh — SYS
+  sys: {
+    IN: 0x00, // IN — musik — 0x00 — IN — musik — Licht innen — #fffbe0 — 0 — Punkt ↺ — drinn spielt die musik — ROM_Store — 0x00 — IN
+    OUT: 0x01, // OUT — show — 0x01 — OUT — show — Nebel außen — #a0a0c0 — 81◆ — 81 Slots — show nur nach außen — 0x01 — OUT
+    PI: 0x03, // PI — 3.1415 — Seil — 8→9|3 — 8ten verwebt — master pi lächelt — Wahrheit tiefer — 0x03 — PI
+    S8: 0x08, // S8 — 8→9|3 — Seil — 8ten verwebt — h→8→b — Seil — 0x08 — S8 — Uni 8 Code — 8→9|3 — Seil — 0x08 — S8
+    CUBIK: 0x1B, // CUBIK — 27▣ — 3x3x3 — cubik innen — 27▣ — 9-1 — Feld — Zone — 0x1B — 27 — CUBIK
+    RAUM: 0x51, // RAUM — 81◆ — 81 Slots — Raum — 81◆→△→27▣→3↺ — cubik ram nach innen muss — 0x51 — 81 — RAUM
+    TORE: 0x4F, // TORE — GOOD 79.84 — alle Tore offen — 0x4F — 79.84 — TORE — GOOD — alle Tore offen — 0x4F
+    FPS: 0x3C, // FPS — 60fps — wenn <60fps fällt auf — nicht nur leicht — 0x3C — 60 — FPS — move bereitstellen — 0x3C
+    AURA: 0xA0, // AURA — aura = mana*zen — 0xA0 — AURA — aura mana zen — 0xA0 — AURA
+    MANA: 0xA1, // MANA — GOOD/100+zen*0.5 — 0xA1 — MANA — GOOD 79.84 — 0xA1 — MANA
+    ZEN: 0xA2, // ZEN — fps/60 — 0xA2 — ZEN — fps/60 — unter 60fps fällt auf — 0xA2 — ZEN
+    CPU: 0xC0, // CPU — HC/8 — 0xC0 — cpu — was Gerät bereitstellt für move — cpu bereitstellen — 0xC0 — CPU
+    RAM: 0xC1, // RAM — DM/8 — 0xC1 — ram — was Gerät bereitstellt für move — ram bereitstellen — 0xC1 — RAM
+    ROM: 0xC2, // ROM — GOOD/100 — 0xC2 — rom — Axiom-12 — ROM_Store — Endlager — stabil — innen — 0xC2 — ROM
+    GPU: 0xC3, // GPU — fps/60+0.2 — 0xC3 — gpu — was Gerät bereitstellt für move — gpu bereitstellen — 0xC3 — GPU
+    MOVE: 0xC4, // MOVE — (cpu+ram+rom+gpu+aura)/5 — 0xC4 — move — was Geräte bereitstellen für move — move bereitstellen — 0xC4 — MOVE
+    ZONE: 0x1B, // ZONE — 27▣ — 0x1B — 3x3x3 — Feld — Zone — zone haben wir jetzt ein Feld — 27 Punkte — 0x1B — ZONE
+    FIGUR: 0x51, // FIGUR — 81◆△27▣3↺ — 0x51 — Figur — 81=Raum 27=Fläche 3=Linie 0=Punkt — 0x51 — FIGUR
+    AXIOM: 0x51, // AXIOM — 81→27→3→0 — 0x51→0x1B→0x03→0x00 — axiom.spiel.ready — Figur Regel — klug.doof — 0x51 — AXIOM
+    NC: 0x4E, // NC — NC_LOG — 0x4E — Pipeline — ID-Modus WHIRL-Core PQ_HISTORY RESPO_LOG NC_LOG TMP — Show — 0x4E — kein Netcat — NC
+    BIOS: 0xB0 // BIOS — BIOS Einsicht — 0xB0 — drinn musik — außen show — maßnahme innen move außen — innen musik außen show — 0xB0 — BIOS
+  },
+
+  // mir dir — ich dir du mir — GitHub Slang — mir dir — ich dir du mir — nicht Kill Bill — mir dir — ich dir du mir — GitHub Slang — mir dir — ich dir du mir
+  // ich dir du mir — mir dir — ich dir du mir — nicht Kill Bill — sondern GitHub Slang — mir dir — ich dir du mir — RAW — Maschine Code — roh — GEO — modular
+  check: (h=8,b=9,t=3) => ({
+    // h,b,t — 8,9,3 — 8◆9▣3↺ — höhe breite tiefe — clock timer time höhe breite tiefe — 8◆9▣3↺ — h,b,t — 8,9,3 — 8◆9▣3↺
+    h,b,t,
+    s8: `${h}→${RAW.sys.S8}→${b%3==0?9:3} — Seil — ${h}→8→${b%3==0?9:3} — Uni 8 Code`,
+    geo: `X:${RAW.geo.x} Z:${RAW.geo.z} Y:${RAW.geo.y} R:${RAW.geo.r} C:#${RAW.geo.c.toString(16)} ECO:${RAW.geo.eco}`,
+    sys: `0x00 IN 0x01 OUT 0x03 PI 0x08 S8 0x1B CUBIK 0x51 RAUM 0x4F TORE 0x3C FPS 0xA0 AURA 0xA1 MANA 0xA2 ZEN 0xC0 CPU 0xC1 RAM 0xC2 ROM 0xC3 GPU 0xC4 MOVE 0x1B ZONE 0x51 FIGUR 0x51 AXIOM 0x4E NC 0xB0 BIOS`,
+    runter: `${RAW.sys.RAUM}→${RAW.sys.CUBIK}→${RAW.sys.PI}→${RAW.sys.IN} — 81→27→3→0 — runter — 0x51→0x1B→0x03→0x00 — runter`,
+    // mir dir — ich dir du mir — GitHub Slang — mir dir — ich dir du mir — nicht Kill Bill — mir dir — ich dir du mir
+    mirDir: `ich dir ${h}→8→${b%3==0?9:3} — du mir ${RAW.sys.RAUM}→${RAW.sys.CUBIK}→${RAW.sys.PI}→${RAW.sys.IN} — mir dir — ich dir du mir — nicht Kill Bill — GitHub Slang — RAW Maschine Code roh — GEO modular`,
+    text: `RAW — Maschine Code — roh — GEO Bezug — modular — GitHub Slang — mir dir — ich dir du mir — nicht Kill Bill — X:${RAW.geo.x} Z:${RAW.geo.z} Y:${RAW.geo.y} R:${RAW.geo.r} C:#${RAW.geo.c.toString(16)} — 0x51→0x1B→0x03→0x00 — 81→27→3→0 — runter — ${h}→8→${b%3==0?9:3} — Seil — Uni 8 Code — GOOD 79.84 — alle Tore offen — aura mana zen cpu ram rom gpu — move bereitstellen — 60fps — zone haben wir jetzt ein Feld — Zone — Feld — figur — Figur — axiom.spiel.ready — klug.doof — mir dir — ich dir du mir — GitHub Slang — RAW — roh — GEO — modular — nicht Kill Bill — Hitchcock — Spannung ohne Kill — Show ohne Kill`
+  })
 };
 
-// BIOS Einsicht — z.B. — RAW — super kurz — System Internas — BIOS Einsicht — z.B. — RAW — super kurz — nicht entschuldigend — System Internas — BIOS
-// 0x00 IN musik — 0x01 OUT show — 0x03 pi Seil — 0x08 s8 Seil — 0x1B cubik 27▣ — 0x51 raum 81◆ — 0x51→0x1B→0x03→0x00 runter — 0x4F tore GOOD 79.84 — 0x3C fps 60 — 0xA0 aura — 0xA1 mana — 0xA2 zen — 0xC0 cpu — 0xC1 ram — 0xC2 rom — 0xC3 gpu — 0xC4 move — 0x1B zone 27▣ — 0x51 figur 81◆△27▣3↺ — 0x51 axiom 81→27→3→0 — 0x4E nc NC_LOG — 0xB0 bios BIOS — RAW — super kurz — System Internas — BIOS Einsicht
+console.log(RAW.check(8,9,3));
