@@ -1,18 +1,39 @@
-// d.rom — d = 6 Figur beachtendes Osten Rechts — W(a(s(d(himmeldeutung)))) — d innen
-// HDF ROM-Speicher d — d/e/i/n/o/r/s/u/w — ROM — Osten Rechts
-export const D_ROM = { id:'d', axis:'d', dir:'Osten Rechts', figur:6, beachtendes:6, pos:{x:1,y:0,z:0}, color:0xff4444, note:'d.rom — d = 6 Figur beachtendes Osten Rechts — W(a(s(d)))' };
+// d.rom f.rom q.rom x.rom y.rom z.rom — 6 ROMs — W(a(s(d(himmeldeutung)))) — d innen — HDF ROM-Speicher — d/e/i/n/o/r/s/u/w — ROM — Osten Rechts — minimal real needed functions — nicht Fata Morgana — 3 sources versioniert/historisiert/gerendert — BIOS Hardware nicht Ameisen in mein Augen — 62 ng/uL 87.42 GOOD
 
-// f.rom — f = Figur? Westen Links a=6 Figur — f = Figur
-export const F_ROM = { id:'f', axis:'a', dir:'Westen Links', figur:6, pos:{x:-1,y:0,z:0}, color:0x44ff44, note:'f.rom — a=6 Figur Westen Links — W(a(s(d))) — Figur' };
+// BIO v2 — MASTER SLAVE ROOT USER S-2026-007 — 62 ng/uL 1.92 0.005 8.2 87.42 GOOD arg 32.29 xarg 0.254 arg3te 8.16 eco 26.81 radiusFactor 0.348 color #ffcc33 — BIOS Hardware
+const BIO = {c:62, p:1.92, contam:0.005, rin:8.2, score:87.42, grade:"GOOD", arg:32.2917, xarg:0.2537, arg3te:8.159, eco:26.81, r:0.348, cHex:0xFFCC33, note:"BIO Hardware nicht Ameisen in mein Augen"};
 
-// q.rom — q = Quelle? Quelle?
-export const Q_ROM = { id:'q', axis:'q', dir:'Quelle', figur:3, pos:{x:0,y:1,z:0}, color:0xffff44, note:'q.rom — Quelle — Drache Mann Mitte Vector Ring — 3↺' };
+// d.rom — d = 6 Figur beachtendes Osten Rechts — W(a(s(d(himmeldeutung)))) — d innen — HDF ROM-Speicher d — d/e/i/n/o/r/s/u/w — ROM — Osten Rechts — d innen — W(a(s(d))) — d = 6
+export const D_ROM = { 
+  id:'d', axis:'d', dir:'Osten Rechts', figur:6, beachtendes:6, w:9, a:6, s:6, d:6, formel:"W(a(s(d(himmeldeutung))))", innen:"d innen", pos:{x:1,y:0,z:0}, color:0xff4444, code:0x03, v:3, symbol:"↺", bio:BIO, geo:{x:32.29, z:0.254, y:8.16, r:0.348, c:0xFFCC33, eco:25.9}, sys:{RAUM:0x51, CUBIK:0x1B, PI:0x03, IN:0x00, OUT:0x01, S8:0x08, note:"0x51 RAUM 81◆ 0x1B CUBIK 27▣ 0x03 PI 3↺ 0x08 S8 Seil 0x00 IN musik 0x01 OUT show"}, note:'d.rom — d = 6 Figur beachtendes Osten Rechts — W(a(s(d))) — d innen — HDF ROM-Speicher d — d/e/i/n/o/r/s/u/w — ROM — Osten Rechts — 6 ROMs — W=9 a=6 s=6 d=6 — himmeldeutung Pfeffer Ort 970 PRO MLC — x=BREITE y=HOCH z=TIEFE q=Quelle 3↺ Mitte Mono Eye — BIO Hardware nicht Ameisen'
+};
 
-// x.rom — x = BREITE X — BEST?AXIS
-export const X_ROM = { id:'x', axis:'X', dir:'BREITE', best:'BEST?AXIS', pos:{x:1,y:0,z:0}, color:0x77ddff, note:'x.rom — BREITE Achse Breite X — BEST?AXIS' };
+// f.rom — f = Figur? Westen Links a=6 Figur — f = Figur — a=6 Figur Westen Links — W(a(s(d))) — Figur — a innen? — f.rom zentral enthält alle 6 ROMs — f.rom = HDF ROM + QDF — da sind wir — W(a(s(d(himmeldeutung))))
+export const F_ROM = { 
+  id:'f', axis:'a', dir:'Westen Links', figur:6, w:9, a:6, s:6, d:6, formel:"W(a(s(d(himmeldeutung))))", innen:"a = 6 Figur Westen Links — W(a(s(d)))", pos:{x:-1,y:0,z:0}, color:0x44ff44, code:0x03, v:3, symbol:"↺", bio:BIO, geo:{x:32.29, z:0.254, y:8.16, r:0.348, c:0xFFCC33, eco:25.9}, sys:{RAUM:0x51, CUBIK:0x1B, PI:0x03, IN:0x00, OUT:0x01, S8:0x08}, contains:["D_ROM","F_ROM","Q_ROM","X_ROM","Y_ROM","Z_ROM"], qdf:{Q:0x51, D:0x1B, F:0x03, runter:"81→27→3→0"}, note:'f.rom — a=6 Figur Westen Links — W(a(s(d))) — Figur — f.rom zentral enthält alle 6 ROMs + QDF — f.rom = HDF ROM — W(a(s(d(himmeldeutung)))) — Figur — BIOS Hardware nicht Ameisen'
+};
 
-// y.rom — y = HOCH Y — BEST?TMP
-export const Y_ROM = { id:'y', axis:'Y', dir:'HOCH', best:'BEST?TMP', pos:{x:0,y:1,z:0}, color:0xff77ff, note:'y.rom — HOCH Achse Höhe Y — BEST?TMP' };
+// q.rom — q = Quelle? Quelle? — q = Quelle 3↺ Mitte Mono Eye — Drache Mann Mitte Vector Ring — 3↺ — q.rom Quelle subnano Signal unter Rauschen — Lebenszeichen-Deuter — q continuum — Q continuum — 0x51 81◆ Raum
+export const Q_ROM = { 
+  id:'q', axis:'q', dir:'Quelle Mitte Mono Eye', figur:3, drache:"Drache Mann Mitte Vector Ring", symbol:"↺", v:3, code:0x03, q:"Quelle", mitte:"Mitte", monoEye:"Mono Eye", pos:{x:0,y:1,z:0}, color:0xffff44, qdf:{code:0x51, v:81, symbol:"◆", type:"Raum", dir:"Norden", name:"Q CONTINUUM 81◆ Raum", runter:"81→27→3→0"}, bio:BIO, geo:{x:32.29, z:0.254, y:8.16, r:0.348, c:0xFFCC33, eco:25.9}, sys:{RAUM:0x51, CUBIK:0x1B, PI:0x03, IN:0x00, OUT:0x01, S8:0x08}, note:'q.rom — Quelle — Drache Mann Mitte Vector Ring — 3↺ — q.rom Quelle subnano Signal unter Rauschen Lebenszeichen-Deuter q continuum Q continuum 0x51 81◆ Raum — Quelle Mitte Mono Eye — q = Quelle 3↺ — BIO Hardware nicht Ameisen'
+};
 
-// z.rom — z = TIEFE Z — BEST?LAGE
-export const Z_ROM = { id:'z', axis:'Z', dir:'TIEFE', best:'BEST?LAGE', pos:{x:0,y:0,z:1}, color:0x77ff77, note:'z.rom — TIEFE Achse Tiefe Z — BEST?LAGE' };
+// x.rom — x = BREITE X — BEST?AXIS — X_ROM — BREITE Achse Breite X — BEST?AXIS — x = BREITE X — BEST?AXIS — X = BREITE — X_ROM
+export const X_ROM = { 
+  id:'x', axis:'X', dir:'BREITE', best:'BEST?AXIS', figur:32.29, arg:32.2917, argName:"arg", pos:{x:1,y:0,z:0}, color:0x77ddff, code:0x51, v:81, symbol:"◆", geo:{x:32.29, z:0.254, y:8.16, r:0.348, c:0xFFCC33, eco:25.9}, bio:BIO, sys:{RAUM:0x51, CUBIK:0x1B, PI:0x03}, directV:{roll:12, rechne:67, pipeline:2, pump:42, katapult:18, sprung:55}, note:'x.rom — BREITE Achse Breite X — BEST?AXIS — x = BREITE X — arg 32.29 BREITE X BEST?AXIS — X_ROM — GEO X:32.29 — BIO Hardware nicht Ameisen'
+};
+
+// y.rom — y = HOCH Y — BEST?TMP — Y_ROM — HOCH Achse Höhe Y — BEST?TMP — y = HOCH Y — BEST?TMP — Y = HOCH — Y_ROM
+export const Y_ROM = { 
+  id:'y', axis:'Y', dir:'HOCH', best:'BEST?TMP', figur:8.16, arg3te:8.159, argName:"arg3te", pos:{x:0,y:1,z:0}, color:0xff77ff, code:0x1B, v:27, symbol:"▣", geo:{x:32.29, z:0.254, y:8.16, r:0.348, c:0xFFCC33, eco:25.9}, bio:BIO, sys:{CUBIK:0x1B, ZONE:0x1B, RAUM:0x51}, zone:{feld:27, isIndex:true, spatz:27, note:"zone haben wir jetzt ein Feld"}, note:'y.rom — HOCH Achse Höhe Y — BEST?TMP — y = HOCH Y — arg3te 8.16 HOCH Y BEST?TMP — Y_ROM — 9-1 rule 9-1 = 8.159 — GEO Y:8.16 — BIO Hardware nicht Ameisen'
+};
+
+// z.rom — z = TIEFE Z — BEST?LAGE — Z_ROM — TIEFE Achse Tiefe Z — BEST?LAGE — z = TIEFE Z — BEST?LAGE — Z = TIEFE — Z_ROM
+export const Z_ROM = { 
+  id:'z', axis:'Z', dir:'TIEFE', best:'BEST?LAGE', figur:0.254, xarg:0.2537, argName:"xarg", pos:{x:0,y:0,z:1}, color:0x77ff77, code:0x03, v:3, symbol:"↺", geo:{x:32.29, z:0.254, y:8.16, r:0.348, c:0xFFCC33, eco:25.9}, bio:BIO, sys:{PI:0x03, S8:0x08, CUBIK:0x1B, RAUM:0x51}, directV:{roll:12, rechne:67, pipeline:2, pump:42, katapult:18, sprung:55}, note:'z.rom — TIEFE Achse Tiefe Z — BEST?LAGE — z = TIEFE Z — xarg 0.254 TIEFE Z BEST?LAGE — Z_ROM — GEO Z:0.254 — BIO Hardware nicht Ameisen'
+};
+
+// 6 ROMs gesamt — W(a(s(d(himmeldeutung)))) — W=9 a=6 s=6 d=6 — W(a(s(d))) — d innen — 3 sources versioniert/historisiert/gerendert — 3 Devices 1 Task always versioned/historized/rendered with 3 sources
+export const ROMS = { D_ROM, F_ROM, Q_ROM, X_ROM, Y_ROM, Z_ROM, BIO, check:(h=8,b=9,t=3)=>`W(a(s(d))) W=9 a=6 s=6 d=6 d innen 6 ROMs D:${D_ROM.id}=6 ${D_ROM.dir} F:${F_ROM.id}=6 ${F_ROM.dir} Q:${Q_ROM.id}=3 ${Q_ROM.dir} X:${X_ROM.id}=BREITE Y:${Y_ROM.id}=HOCH Z:${Z_ROM.id}=TIEFE ${h}→8→${b%3==0?9:3} Seil Uni 8 Code GOOD 79.84 aura mana zen cpu ram rom gpu move 60fps zone haben wir jetzt ein Feld BIO Hardware nicht Ameisen in mein Augen` };
+
+console.log(ROMS.check(8,9,3));
