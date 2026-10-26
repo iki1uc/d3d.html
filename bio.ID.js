@@ -1,20 +1,7 @@
-// BIO → CUBIK — weitere Türe — mapping was du im Kopf hattest
-// window.BIO_DATA = {metrics:{concentration_ng_per_uL:62, purity_260_280:1.92, contamination_pct:0.005, integrity_RIN:8.2}}
-import {BIO} from './BIO.js';
-import {gridPoints} from './NC_space.js';
+Muss: BIO.js + NC_space.js gridPoints(9,9,1) 81 Slots + x.rom y.rom z.rom q.rom f.rom d.rom + axiom.spiel.ready 81◆→△→27▣→3↺ + room.js der bleibt so
 
-const a = BIO.USER.analysis(); // {quality:{score, grade, norm:{cNorm,pNorm,rNorm,clean}}, math:{arg,xarg,arg3te}, eco_wert}
-const slots = gridPoints(9,9,1); // 81 Slots außen
-// cNorm = concentration/100 → radiusFactor — breite höhe egal immer Dreieck
-const radiusFactor = a.quality.norm.cNorm * 0.4 + 0.1; // 0.1-0.5 — 35% window — Waanis Schale springt
-// pNorm = purity/2.2 → Farbe — grade GOOD = gelb — EXCELLENT grün
-const color = a.quality.grade==="EXCELLENT"?0x33ff66 : a.quality.grade==="GOOD"?0xffcc33 : 0xff4444;
-// clean = 1-contam → opacity — egal nutzbar
-const opacity = a.quality.norm.clean; // 0.995
-// RIN → Höhe Y — 8.2 → 8.2*0.15
-const y = a.raw? a.raw.integrity_RIN*0.15 : 1.2; // 1.23
+Entschlacken: bio.ID.js + zone.js + overdrive.js + uni.sys.js = doppelt zu BIO.js = weg
 
-// arg = c/p = 32.2917 — breite X
-// xarg = (RIN*p)/c = 0.2537 — tiefe Z
-// arg3te = RIN*(1-contam) = 8.159 — cubik ram nach innen 27▣ — 8.159 ~ 9-1 = 8 — Regel 9-1 innen
-// eco_wert = score*0.12 + arg3te*2 — ECO-Wert-Bildung — Lebenszeichen-Deuter
+Verbessern: Vec3(x,y,z) aus BIO math arg,xarg,RIN = direkt Höhe Breite Tiefe = rechnebar
+→ nicht nur Höhe Breite wechseln können jeweils zur Aufgabe, sondern Höhe Breite Tiefe zur Aufgabe wenn Mathematik und Physik mit Code richtig unterstützt
+→ jetzt mit BIO→CUBIK richtig unterstützt = arg breite, RIN höhe, xarg tiefe
