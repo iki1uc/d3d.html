@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ω · iki1uc EDITOR · HOME 3 · MATRIX 9 · WORLD 81 · JEDI v81</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
+:root{--bg:#03060c;--bg2:#070e1a;--panel:#0c1729;--panel2:#111f36;--line:#1b2d4d;--line2:rgba(212,175,55,.28);--fg:#d6deea;--muted:#7a8aa3;--gold:#d4af37;--gold2:#f5d76e;--green:#6de090;--red:#ff5a5a;--cyan:#22d3ee;--pink:#ff5a8a;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--fg);font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.5;min-height:100vh}
+button{font-family:inherit;font-size:inherit;color:inherit;background:transparent;border:1px solid var(--line);padding:4px 8px;cursor:pointer}
+button:hover{border-color:var(--gold);color:var(--gold)}
+button.active{background:var(--gold);color:#000;border-color:var(--gold);font-weight:700}
+input,textarea,select{font-family:inherit;font-size:inherit;background:var(--bg);color:var(--fg);border:1px solid var(--line);padding:3px 6px;outline:none}
+input:focus{border-color:var(--line2);background:#000}
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-thumb{background:rgba(212,175,55,.25)}
+.hdr{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:50;flex-wrap:wrap}
+.omega{width:32px;height:32px;background:var(--gold);color:#000;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px}
+.hdr-left{display:flex;align-items:center;gap:10px;flex:1;min-width:280px}
+.hdr-title input.title-input{font-size:13px;font-weight:700;color:var(--gold);background:transparent;border:1px dashed transparent;min-width:120px}
+.hdr-center{display:flex;align-items:center;gap:6px;flex:2;min-width:220px}
+.search{display:flex;align-items:center;gap:6px;flex:1;background:var(--bg);border:1px solid var(--line);padding:0 8px;height:28px}
+.search input{flex:1;background:transparent;border:0;height:100%;font-size:11px}
+.mode-toggle{display:flex;border:1px solid var(--line);background:var(--bg)}
+.mode-toggle button{border:0;padding:5px 8px;font-size:10px;color:var(--muted);border-right:1px solid var(--line)}
+.mode-toggle button.active{background:var(--gold);color:#000;font-weight:700}
+.badge{padding:3px 7px;border:1px solid var(--line);color:var(--muted);font-size:10px}
+.badge.on{border-color:var(--gold);color:var(--gold)}
+.shell{display:grid;grid-template-columns:200px 1fr 320px;min-height:calc(100vh - 52px)}
+.menu{border-right:1px solid var(--line);background:var(--panel);padding:8px;overflow-y:auto;max-height:calc(100vh - 52px);position:sticky;top:52px}
+.menu-sec{font-size:9px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;padding:10px 6px 4px;border-bottom:1px dashed var(--line);margin-bottom:4px;font-weight:700}
+.menu-item{display:flex;justify-content:space-between;padding:6px 8px;cursor:pointer;border:1px solid transparent;font-size:11px;margin-bottom:2px;width:100%;text-align:left}
+.menu-item.active{background:var(--gold);color:#000;font-weight:700}
+.center{background:var(--bg);overflow:auto;max-height:calc(100vh - 52px)}
+.view-hdr{display:flex;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:10}
+.view-body{padding:14px}
+.detail{border-left:1px solid var(--line);background:var(--panel);padding:10px;overflow-y:auto;max-height:calc(100vh - 52px);position:sticky;top:52px}
+.dsec{margin-bottom:14px}
+.drow{display:flex;justify-content:space-between;gap:8px;font-size:10px;padding:3px 0;color:var(--muted)}
+.drow b{color:var(--fg)}
+.axis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.axis-card{border:1px solid var(--line);background:var(--panel);padding:14px;position:relative}
+.axis-card .num{font-size:32px;font-weight:700;color:var(--gold);line-height:1}
+.matrix-wrap{border:1px solid var(--line);background:var(--bg2);padding:8px;position:relative}
+.matrix-canvas{position:relative;height:400px;background:var(--bg);border:1px solid var(--line);overflow:hidden;background-image:radial-gradient(circle at 1px 1px, rgba(212,175,55,.18) 1px, transparent 0);background-size:22px 22px}
+.matrix-node{position:absolute;width:28px;height:28px;margin-left:-14px;margin-top:-14px;border-radius:50%;background:var(--panel2);border:2px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;cursor:grab;user-select:none}
+.matrix-node.sel{background:var(--gold);color:#000}
+.matrix-node .lbl{position:absolute;top:30px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:9px;padding:1px 5px;background:rgba(0,0,0,.8);border:1px solid var(--line);color:var(--fg)}
+.matrix-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.ftr{border-top:1px solid var(--line);padding:6px 14px;font-size:10px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--panel)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;padding:8px 16px;font-weight:700;font-size:11px;z-index:100;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+/* WORLD CSS */
+.world-section-title{display:flex;justify-content:space-between;align-items:center;margin:18px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--line);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.world-grid-wrap{border:1px solid var(--line);background:var(--bg2);padding:6px}
+.world-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:3px}
+.world-cell{border:1px solid var(--line);background:var(--bg);padding:4px;display:flex;flex-direction:column;gap:2px;min-height:76px}
+.world-cell:hover{border-color:var(--line2)}
+.wc-top{display:flex;justify-content:space-between;align-items:center;font-size:8px}
+.wc-id{color:var(--muted)}
+.wc-cat{border:1px solid;padding:0 3px;font-size:7px}
+.wc-score input{width:100%;font-size:14px;font-weight:700;border:0;background:transparent;color:var(--gold)}
+.wc-meta{display:grid;grid-template-columns:1fr 1fr;gap:2px;font-size:8px;color:var(--muted)}
+.wc-bottom{display:flex;gap:2px;align-items:center;margin-top:auto}
+.wc-bottom input{width:36px;font-size:8px;background:transparent;border:0;color:var(--cyan)}
+.wc-bar{flex:1;height:2px;background:var(--line);overflow:hidden}
+.wc-bar>div{height:100%}
+.world-card{border:1px solid var(--line);background:var(--bg2);margin-bottom:12px}
+.world-card-hdr{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;border-bottom:1px solid var(--line);background:var(--panel);font-size:10px;color:var(--muted)}
+.world-table{width:100%;border-collapse:collapse;font-size:10px}
+.world-table th{position:sticky;top:0;background:var(--panel);color:var(--muted);text-align:left;padding:4px 6px;border-bottom:1px solid var(--line)}
+.world-table td{padding:3px 6px;border-bottom:1px solid rgba(27,45,77,.5)}
+.world-table input,.world-table select{background:var(--bg);border:1px solid transparent;padding:1px 4px;font-size:10px;color:var(--fg);width:100%}
+.bio-bar{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin:12px 0;border:1px solid var(--line);background:var(--line);gap:1px}
+.bio-bar>div{background:var(--bg);padding:8px}
+.bio-bar .k{font-size:8px;color:var(--muted);letter-spacing:.1em}
+.bio-bar .v{font-size:16px;font-weight:700;color:var(--gold);margin-top:2px}
+body[data-mode="AUSSEN"] .layer-mitte, body[data-mode="AUSSEN"] .layer-innen{opacity:.35;pointer-events:none;filter:grayscale(.6)}
+body[data-mode="MITTE"] .layer-aussen, body[data-mode="MITTE"] .layer-innen{opacity:.35;pointer-events:none;filter:grayscale(.6)}
+body[data-mode="INNEN"] .layer-aussen, body[data-mode="INNEN"] .layer-mitte{opacity:.35;pointer-events:none;filter:grayscale(.6)}
+</style>
+</head>
+<body data-mode="ALLE">
+<header class="hdr">
+<div class="hdr-left"><div class="omega">Ω</div><div class="hdr-title"><input class="title-input layer-aussen" id="hdrTitle" value="iki1uc EDITOR JEDI v81"><small>HOME · MATRIX · WORLD · 3·9·81 · <span id="phaseLabel">HOME</span> · JEDI</small></div></div>
+<div class="hdr-center"><div class="search"><span>⌕</span><input id="searchInput" placeholder="Suche über alle Schichten…"><span id="searchCount">0</span></div><div class="mode-toggle" id="modeToggle"><button data-mode="AUSSEN">AUSSEN</button><button data-mode="MITTE">MITTE</button><button data-mode="INNEN">INNEN</button><button data-mode="ALLE" class="active">ALLE</button></div></div>
+<div class="hdr-right"><span class="badge on" id="activeBadge">HOME</span><span class="badge" id="fpsBadge">60fps</span><span class="badge on" id="goodBadge">GOOD 79.84</span><button class="hdr-btn" id="exportBtn">EXPORT HTML</button></div>
+</header>
+<div class="shell"><nav class="menu" id="menu"></nav><main class="center" id="center"></main><aside class="detail" id="detail"></aside></div>
+<footer class="ftr"><div>Ω JEDI v81 · <b>3 · 9 · 81</b> · <span id="bioText">BIO→CUBIK GOOD 79.84 — aura mana zen cpu ram rom gpu move 60fps</span></div><div><b id="clock">--:--:--</b> · <span id="fieldCount">0</span> Felder</div></footer>
+<div class="toast" id="toast"></div>
+<script>
+// === BIO — FINAL — aura mana zen dann cpu ram rom gpu move bereitstellen — 60fps ===
+const BIO = {
+  id:"BIO→CUBIK", cubik:{arg:32.29,xarg:0.254,arg3te:8.16,innen:27,eco:25.9,radiusFactor:0.348,color:"#ffcc33",good:79.84,tore:"alle Tore offen",regel:"81◆→△→27▣→3↺"},
+  aura:{check(){const fps=BIO.perf.fps();const zen=fps>=60?1:fps/60;const mana=Math.min(1,0.7984+zen*0.5);const aura=mana*zen;return{aura:+(aura*100).toFixed(2),mana:+(mana*100).toFixed(2),zen:+(zen*100).toFixed(2),fps,text:`aura ${aura.toFixed(2)} — mana ${mana.toFixed(2)} — zen ${zen.toFixed(2)} — fps ${fps}`}}},
+  move:{
+    cpu(){const cores=navigator.hardwareConcurrency||4;const fps=BIO.perf.fps();const bereit=Math.min(1,fps/60*(cores/4));return{cores,bereit:+(bereit*100).toFixed(1)}},
+    ram(){const mem=navigator.deviceMemory||8;const bereit=Math.min(1,mem/8);return{gb:mem,bereit:+(bereit*100).toFixed(1)}},
+    rom(){const good=BIO.cubik.good;const bereit=good/100;return{good,bereit:+(bereit*100).toFixed(1)}},
+    gpu(){let r="unknown";let b=0.5;try{const c=document.createElement("canvas");const gl=c.getContext("webgl");const dbg=gl.getExtension("WEBGL_debug_renderer_info");if(dbg) r=gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL);const fps=BIO.perf.fps();b=Math.min(1,fps/60+0.2);}catch(e){}return{renderer:r,bereit:+(b*100).toFixed(1)}},
+    gesamt(){const a=BIO.aura.check(),cpu=BIO.move.cpu(),ram=BIO.move.ram(),rom=BIO.move.rom(),gpu=BIO.move.gpu();const move=(cpu.bereit+ram.bereit+rom.bereit+gpu.bereit+a.aura)/5;const eco=+(move*0.325).toFixed(2);return{aura:a.aura,mana:a.mana,zen:a.zen,fps:a.fps,cpu:cpu.bereit,ram:ram.bereit,rom:rom.bereit,gpu:gpu.bereit,move:+move.toFixed(2),eco,good:+move.toFixed(2),tore:move>=70?"alle Tore offen GOOD 79.84":"Tore lahmt — unter 60fps fällt auf",color:move>=70?"#ffcc33":move>=50?"#ff9933":"#ff3333",text:`BIO→CUBIK GOOD ${move.toFixed(2)} — aura ${a.aura} mana ${a.mana} zen ${a.zen} — cpu ${cpu.bereit} ram ${ram.bereit} rom ${rom.bereit} gpu ${gpu.bereit} — move ${move.toFixed(2)} — eco ${eco} — 81◆→△→27▣→3↺`}}
+  },
+  perf:{_last:performance.now(),_frames:0,_fps:60,fps(){this._frames++;const n=performance.now(),d=n-this._last;if(d>=500){this._fps=Math.round(this._frames*1000/d);this._last=n;this._frames=0}return this._fps;}},
+  check(){return this.move.gesamt();}
+};
+const BIO_ID={id:"BIO_ID",aura:()=>BIO.aura.check(),move:()=>BIO.move.gesamt(),check:(h=8,b=9,t=3)=>({h,b,t,...BIO.move.gesamt(),s8:`${h}→8→${b%3==0?9:3} — Seil`,regel:"maßnahme innen move außen — innen musik außen show — aura mana zen — cpu ram rom gpu — move bereitstellen — 60fps"})};
+const state={
+  header:{title:'iki1uc EDITOR JEDI v81'},
+  home:{_title:'Self Core',axes:[{id:'org',num:'1',name:'ORG',label:'reine Achse',value:'Ridvan',role:'Identität',layer:'INNEN'},{id:'reorg',num:'2',name:'REORG',label:'geregelte Achse',value:'Builder',role:'Rolle',layer:'INNEN'},{id:'nc',num:'3',name:'NC',label:'Tiefenachse',value:'Creator',role:'Modus',layer:'INNEN'}],loc:{label:'HOME — Ort',points:[{id:'hh',city:'Hamburg',note:'physisch'},{id:'ce',city:'Çorlu',note:'TR'},{id:'is',city:'Istanbul',note:'TR'}]},dev:{label:'HOME — Geräte',items:[{id:'px',name:'PX',note:'Mobile'},{id:'pc',name:'PC',note:'Main'},{id:'cl',name:'Cloud',note:'Remote'}]}},
+  matrix:{nodes:[{id:'sylt',name:'Sylt',x:22,y:18},{id:'bremen',name:'Bremen',x:35,y:42},{id:'bermuda',name:'Bermuda',x:78,y:68},{id:'nul',name:'NUL ©',x:50,y:50},{id:'p5',name:'P5',x:15,y:75},{id:'p6',name:'P6',x:85,y:20},{id:'p7',name:'P7',x:10,y:45},{id:'p8',name:'P8',x:65,y:85},{id:'p9',name:'P9',x:90,y:88}],edges:[{a:'sylt',b:'bremen'},{a:'bremen',b:'bermuda'},{a:'bermuda',b:'sylt'},{a:'nul',b:'sylt'},{a:'nul',b:'bremen'},{a:'nul',b:'bermuda'}]},
+  world:{
+    cells:[],topRows:[],economy:{css:true,js:true,html:false,klasse:'Economy',hatBestellt:true,nurWerbung:false,sat1:999},
+    kompetenz:[{id:'k1',key:'Funktion',color:'#d4af37',weight:0.89,auftrieb:0.92},{id:'k2',key:'Lippenstift',color:'#ff5a8a',weight:0.76,auftrieb:0.12},{id:'k3',key:'Economy',color:'#a3a3a3',weight:0.68,auftrieb:0.45},{id:'k4',key:'Bermuda',color:'#60a5fa',weight:0.81,auftrieb:0.77},{id:'k5',key:'Auftrieb',color:'#22d3ee',weight:0.94,auftrieb:0.99},{id:'k6',key:'Marie',color:'#f87171',weight:0.71,auftrieb:0.33}],
+    codes:['Funktion','Optik','Lippenstift','Binde+','Auftrieb','Economy','Bremen','Sylt','ROOT','USER','SCAN','KRISTALL'],
+    colors:{Funktion:'#d4af37',Optik:'#7af9d0',Lippenstift:'#ff5a8a','Binde+':'#8b5cf6',Auftrieb:'#22d3ee',Economy:'#a3a3a3',Bremen:'#fb923c',Sylt:'#60a5fa',ROOT:'#facc15',USER:'#4ade80',SCAN:'#f87171',KRISTALL:'#e879f9'},
+    _title:'WORLD · 81 Felder · RESPO · Top 10/100 · Economy'
+  },
+  ui:{activeView:'HOME',mode:'ALLE',search:''}
+};
+let fieldRegistry=new Map(),fieldCounter=0;
+function registerField(layer,group,path,el){const id='f'+(++fieldCounter);el.dataset.fid=id;fieldRegistry.set(id,{layer,group,path,el});return id;}
+function $(s,r=document){return r.querySelector(s)} function $$(s,r=document){return Array.from(r.querySelectorAll(s))}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('show'),1600);}
+function initWorldCells(){const{codes}=state.world;state.world.cells=[];for(let i=0;i<81;i++){const row=Math.floor(i/9),col=i%9;const seed=Math.sin(row*0.8)+Math.cos(col*1.1);const score=Math.round((seed+2)*23.7*10)/10;const cat=codes[i%codes.length];state.world.cells.push({id:'R'+row+col,row,col,respo:`iki1uc:${row}-${col}`,score,cat,qi:Math.round((0.618+Math.random()*0.5)*100)/100,iqq:Math.round((1.2+Math.random()*1.8)*100)/100,codec:570+Math.floor(Math.random()*350)});}state.world.topRows=buildTopRows(10);}
+function buildTopRows(n){const labels=['SCAN KRISTALLISER','EYE.BRAIN OPEN','ROOT ARMED MEGA','TOOLOMAT NUL','Bermuda Sylt Bremen','Marie Antoinette )ORI(','tmp rär um schwenken','real live drückt','Auftrieb Algorithm','Kodak 570-920Hz'];return Array.from({length:n},(_,r)=>({id:'top-'+r,label:labels[r%labels.length]+' #'+(r+1),score:100-r*2.3-Math.random()*3,cat:state.world.codes[r%state.world.codes.length],funktion:Math.round((0.7+Math.random()*0.3)*100),optik:Math.round((0.5+Math.random()*0.5)*100)}));}
+function renderMenu(){const menu=$('#menu');menu.innerHTML='';const groups={'home (3)':['HOME'],'matrix (9)':['MATRIX'],'world (81)':['WORLD'],'achsen':['SC','NC','LOC','DEV'],'feeds':['REPOS','VOLT','IDLE'],'pyramide':['GRAPH']};const phase={HOME:'3',MATRIX:'9',WORLD:'81'};for(const[sec,ids] of Object.entries(groups)){const secEl=document.createElement('div');secEl.className='menu-sec';secEl.textContent=sec;menu.appendChild(secEl);ids.forEach(id=>{const btn=document.createElement('button');btn.className='menu-item'+(state.ui.activeView===id?' active':'');btn.innerHTML=`<span>${id}</span><span>${phase[id]||'·'}</span>`;btn.addEventListener('click',()=>activate(id));menu.appendChild(btn);});}}
+function activate(id){state.ui.activeView=id;$$('.menu-item').forEach(b=>b.classList.toggle('active',b.textContent.includes(id)));$('#activeBadge').textContent=id;$('#phaseLabel').textContent=id;const center=$('#center');center.innerHTML='';const view=document.createElement('div');center.appendChild(view);if(id==='HOME') renderHome(view);else if(id==='MATRIX') renderMatrix(view);else if(id==='WORLD'){if(state.world.cells.length===0) initWorldCells(); renderWorld(view);} else renderPlaceholder(view,id); renderDetail(id);}
+function renderHome(root){
+  const hdr=document.createElement('div');hdr.className='view-hdr layer-aussen';hdr.innerHTML=`<h2>HOME · 3 Achsen — ${esc(state.home._title)}</h2><span class="badge on">3</span>`;root.appendChild(hdr);
+  const bio=document.createElement('div');const g=BIO.check();bio.className='bio-bar layer-mitte';bio.innerHTML=[{k:'aura',v:g.aura},{k:'mana',v:g.mana},{k:'zen',v:g.zen},{k:'cpu',v:g.cpu},{k:'ram',v:g.ram},{k:'rom',v:g.rom},{k:'gpu',v:g.gpu}].map(x=>`<div><div class="k">${x.k}</div><div class="v">${x.v}%</div></div>`).join('')+`<div style="grid-column:span 7;background:#0a0800;padding:6px;font-size:10px;color:var(--gold)">${esc(g.text)} — move bereitstellen — nicht Hardware kontrollieren — 60fps — ${g.tore}</div>`;root.appendChild(bio);
+  const body=document.createElement('div');body.className='view-body';root.appendChild(body);
+  const grid=document.createElement('div');grid.className='axis-grid layer-mitte';body.appendChild(grid);
+  state.home.axes.forEach(ax=>{const card=document.createElement('div');card.className='axis-card';card.innerHTML=`<div class="num">${ax.num}</div><div style="font-size:9px;letter-spacing:.2em;color:var(--muted)">${esc(ax.label)}</div><div style="margin-top:10px"><label style="font-size:9px;color:var(--muted)">${esc(ax.role)}</label><input data-ax="${ax.id}" value="${esc(ax.value)}" style="width:100%"></div><div><label style="font-size:9px;color:var(--muted)">Name</label><input data-ax="${ax.id}" data-key="name" value="${esc(ax.name)}" style="width:100%"></div>`;grid.appendChild(card);});
+}
+let matrixDrag=null;
+function renderMatrix(root){
+  const hdr=document.createElement('div');hdr.className='view-hdr layer-aussen';hdr.innerHTML=`<h2>MATRIX · 9 Knoten</h2><span class="badge on">${state.matrix.nodes.length}</span>`;root.appendChild(hdr);
+  const body=document.createElement('div');body.className='view-body';root.appendChild(body);
+  const wrap=document.createElement('div');wrap.className='matrix-wrap layer-mitte';wrap.innerHTML=`<div class="matrix-canvas" id="matrixCanvas"><svg class="matrix-svg" id="matrixSvg"></svg><button style="position:absolute;bottom:8px;right:8px" id="matrixAdd">+ Knoten</button></div>`;body.appendChild(wrap);
+  const canvas=wrap.querySelector('#matrixCanvas'),svg=wrap.querySelector('#matrixSvg');
+  function redraw(){svg.innerHTML='';state.matrix.edges.forEach(e=>{const a=state.matrix.nodes.find(n=>n.id===e.a),b=state.matrix.nodes.find(n=>n.id===e.b);if(!a||!b) return;const line=document.createElementNS('http://www.w3.org/2000/svg','line');line.setAttribute('x1',a.x+'%');line.setAttribute('y1',a.y+'%');line.setAttribute('x2',b.x+'%');line.setAttribute('y2',b.y+'%');line.setAttribute('stroke','rgba(212,175,55,.35)');line.setAttribute('stroke-width','1');line.setAttribute('stroke-dasharray','4 4');svg.appendChild(line);});$$('.matrix-node',canvas).forEach(n=>n.remove());state.matrix.nodes.forEach(n=>{const el=document.createElement('div');el.className='matrix-node';el.style.left=n.x+'%';el.style.top=n.y+'%';el.innerHTML=`<span>${esc(n.name[0])}</span><span class="lbl">${esc(n.name)}</span>`;canvas.appendChild(el);el.addEventListener('mousedown',ev=>{matrixDrag={id:n.id,el};el.classList.add('sel');ev.preventDefault();});});}
+  window.addEventListener('mousemove',ev=>{if(!matrixDrag) return;const rect=canvas.getBoundingClientRect();const x=Math.max(0,Math.min(100,((ev.clientX-rect.left)/rect.width)*100));const y=Math.max(0,Math.min(100,((ev.clientY-rect.top)/rect.height)*100));const node=state.matrix.nodes.find(n=>n.id===matrixDrag.id);if(node){node.x=x;node.y=y;matrixDrag.el.style.left=x+'%';matrixDrag.el.style.top=y+'%';redraw();}});window.addEventListener('mouseup',()=>{if(matrixDrag){matrixDrag.el.classList.remove('sel');matrixDrag=null;}});
+  wrap.querySelector('#matrixAdd').addEventListener('click',()=>{state.matrix.nodes.push({id:'n'+Date.now(),name:'Neu',x:50,y:50});redraw();});
+  redraw();
+}
+function renderWorld(root){
+  const g=BIO.check();
+  const hdr=document.createElement('div');hdr.className='view-hdr layer-aussen';hdr.innerHTML=`<h2>WORLD · 81 · ${esc(state.world._title)}</h2><div style="display:flex;gap:6px"><span class="badge on">${state.world.cells.length}</span><button id="worldRegen">REGEN</button><span class="badge on" style="background:${g.color};color:#000">${g.good}</span></div>`;root.appendChild(hdr);
+  hdr.querySelector('#worldRegen').addEventListener('click',()=>{initWorldCells();renderWorld($('#center').firstChild);});
+  const body=document.createElement('div');body.className='view-body';root.appendChild(body);
+  const bio=document.createElement('div');bio.className='bio-bar';bio.innerHTML=[{k:'aura',v:g.aura},{k:'mana',v:g.mana},{k:'zen',v:g.zen},{k:'cpu',v:g.cpu},{k:'ram',v:g.ram},{k:'rom',v:g.rom},{k:'gpu',v:g.gpu}].map(x=>`<div><div class="k">${x.k}</div><div class="v">${x.v}%</div></div>`).join('')+`<div style="grid-column:span 7;background:#000;padding:6px;font-size:10px;color:${g.color}">${esc(g.text)} — move = (cpu+ram+rom+gpu+aura)/5 — nicht Hardware kontrollieren — wenn unter 60fps fällt nicht nur leicht auf — alle Tore offen</div>`;body.appendChild(bio);
+  const title=document.createElement('div');title.className='world-section-title layer-aussen';title.innerHTML=`<span>81 · RESPO-Grid · 9×9 · ${g.tore}</span><span class="badge">${g.fps}fps</span>`;body.appendChild(title);
+  const gridWrap=document.createElement('div');gridWrap.className='world-grid-wrap layer-mitte';gridWrap.innerHTML=`<div class="world-grid" id="worldGrid"></div>`;body.appendChild(gridWrap);
+  const gridEl=gridWrap.querySelector('#worldGrid');
+  state.world.cells.forEach(cell=>{const color=state.world.colors[cell.cat]||'var(--line)';const el=document.createElement('div');el.className='world-cell';el.innerHTML=`<div class="wc-top"><span class="wc-id">${esc(cell.id)}</span><span class="wc-cat" style="border-color:${color};color:${color}">${esc(cell.cat.slice(0,4).toUpperCase())}</span></div><div class="wc-score"><input type="number" step="0.1" value="${cell.score}"></div><div style="font-size:8px;color:var(--muted)">QI ${cell.qi} IQQ ${cell.iqq}</div><div class="wc-bottom"><input value="${cell.codec}"><div class="wc-bar"><div style="width:${Math.min(100,cell.score)}%;background:${color}"></div></div></div>`;gridEl.appendChild(el);});
+  const topTitle=document.createElement('div');topTitle.className='world-section-title';topTitle.innerHTML=`<span>TOP 10 / TOP 100</span><span class="badge">${state.world.topRows.length}</span>`;body.appendChild(topTitle);
+  const topCard=document.createElement('div');topCard.className='world-card layer-mitte';topCard.innerHTML=`<div class="world-card-hdr"><span>Kompetenz-Ranking</span><div style="display:flex;gap:6px"><button data-top="10">Top 10</button><button data-top="100">Top 100</button></div></div><div style="max-height:300px;overflow:auto"><table class="world-table"><thead><tr><th>#</th><th>Label</th><th>Score</th><th>Cat</th><th>Funktion</th><th>Optik</th></tr></thead><tbody id="topBody"></tbody></table></div>`;body.appendChild(topCard);
+  const topBody=topCard.querySelector('#topBody');state.world.topRows.forEach((r,idx)=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${idx+1}</td><td>${esc(r.label)}</td><td>${r.score.toFixed(1)}</td><td>${esc(r.cat)}</td><td>${r.funktion}</td><td>${r.optik}</td>`;topBody.appendChild(tr);});
+  topCard.querySelectorAll('[data-top]').forEach(btn=>{btn.addEventListener('click',()=>{const m=btn.dataset.top;if(m==='10') state.world.topRows=buildTopRows(10);if(m==='100') state.world.topRows=buildTopRows(100);renderWorld($('#center').firstChild);});});
+}
+function renderPlaceholder(root,id){root.innerHTML=`<div class="view-hdr"><h2>${esc(id)}</h2><span class="badge">Plug-in</span></div><div class="view-body"><div style="border:1px dashed var(--line);padding:40px;text-align:center;color:var(--muted)">Sphäre ${esc(id)} — Plug-in — Block 3 später</div></div>`;}
+function renderDetail(id){
+  const detail=$('#detail');
+  if(id==='WORLD'){
+    const cells=state.world.cells;const avg=cells.length?(cells.reduce((a,c)=>a+c.score,0)/cells.length):0;const g=BIO.check();
+    detail.innerHTML=`<div class="dsec"><h3>WORLD · 81 — JEDI</h3><div class="drow"><span>Zellen</span><b>${cells.length}</b></div><div class="drow"><span>Ø Score</span><b>${avg.toFixed(2)}</b></div><div class="drow"><span>GOOD</span><b style="color:${g.color}">${g.good}</b></div><div class="drow"><span>FPS</span><b>${g.fps} — ${g.tore}</b></div></div><div class="dsec"><h3>BIO — aura mana zen cpu ram rom gpu</h3>${[{k:'aura',v:g.aura},{k:'mana',v:g.mana},{k:'zen',v:g.zen},{k:'cpu',v:g.cpu},{k:'ram',v:g.ram},{k:'rom',v:g.rom},{k:'gpu',v:g.gpu},{k:'move',v:g.move}].map(x=>`<div class="drow"><span>${x.k}</span><b style="color:var(--gold)">${x.v}%</b></div>`).join('')}<div style="font-size:9px;margin-top:8px;color:var(--muted)">${esc(g.text)}<br><br>move = (cpu+ram+rom+gpu+aura)/5 — nicht was drin ist — sondern was Geräte bereitstellen — nicht Hardware kontrollieren — unter 60fps fällt nicht nur leicht auf</div></div><div class="dsec"><h3>Kompetenz</h3>${state.world.kompetenz.map(k=>`<div class="drow"><span style="color:${k.color}">${esc(k.key)}</span><b>${(k.weight*100).toFixed(0)}%</b></div>`).join('')}</div>`;
+    return;
+  }
+  if(id==='HOME'){
+    const g=BIO.check();
+    detail.innerHTML=`<div class="dsec"><h3>HOME · 3 — JEDI</h3><div class="drow"><span>GOOD</span><b style="color:${g.color}">${g.good}</b></div><div class="drow"><span>FPS</span><b>${g.fps}</b></div><div class="drow"><span>Move</span><b>${g.move}</b></div></div><div class="dsec"><h3>aura mana zen</h3><div class="drow"><span>aura</span><b>${g.aura}%</b></div><div class="drow"><span>mana</span><b>${g.mana}%</b></div><div class="drow"><span>zen</span><b>${g.zen}%</b></div></div><div class="dsec"><h3>cpu ram rom gpu</h3><div class="drow"><span>cpu</span><b>${g.cpu}%</b></div><div class="drow"><span>ram</span><b>${g.ram}%</b></div><div class="drow"><span>rom</span><b>${g.rom}%</b></div><div class="drow"><span>gpu</span><b>${g.gpu}%</b></div><div style="margin-top:8px;font-size:9px;color:var(--muted)">move = (cpu+ram+rom+gpu+aura)/5 — was bereitstellt — nicht Hardware</div></div>`;
+    return;
+  }
+  detail.innerHTML=`<div class="dsec"><h3>${esc(id)}</h3><div class="drow"><span>Status</span><b>Plug-in</b></div></div>`;
+}
+function initHeader(){
+  $('#hdrTitle').addEventListener('input',e=>{state.header.title=e.target.value;document.title='Ω · '+e.target.value;});
+  $$('#modeToggle button').forEach(btn=>{btn.addEventListener('click',()=>{$$('#modeToggle button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');state.ui.mode=btn.dataset.mode;document.body.dataset.mode=state.ui.mode;});});
+  $('#searchInput').addEventListener('input',e=>{state.ui.search=e.target.value.trim();let hits=0;const q=state.ui.search.toLowerCase();$$('.world-cell').forEach(c=>{if(!q){c.style.opacity=1;return;}const txt=c.textContent.toLowerCase();const m=txt.includes(q);c.style.opacity=m?1:.2;if(m) hits++;});$('#searchCount').textContent=hits;});
+  $('#exportBtn').addEventListener('click',()=>{const blob=new Blob([document.documentElement.outerHTML],{type:'text/html'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='iki1uc-jedi-v81.html';a.click();toast('EXPORTED JEDI v81');});
+}
+function tick(){
+  const g=BIO.check();
+  $('#fpsBadge').textContent=g.fps+'fps';
+  $('#fpsBadge').style.borderColor=g.fps>=60?'var(--gold)':'var(--red)';
+  $('#fpsBadge').style.color=g.fps>=60?'var(--gold)':'var(--red)';
+  $('#goodBadge').textContent='GOOD '+g.good;
+  $('#goodBadge').style.background=g.color;
+  $('#goodBadge').style.color='#000';
+  $('#bioText').textContent=g.text;
+  $('#fieldCount').textContent=fieldRegistry.size+state.world.cells.length;
+  $('#clock').textContent=new Date().toTimeString().slice(0,8);
+  requestAnimationFrame(tick);
+}
+function init(){initHeader();renderMenu();activate('HOME');tick();setInterval(()=>{$('#clock').textContent=new Date().toTimeString().slice(0,8);},1000);}
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
