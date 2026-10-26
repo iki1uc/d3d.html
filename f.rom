@@ -1,18 +1,13 @@
-// d.rom — d = 6 Figur beachtendes Osten Rechts — W(a(s(d(himmeldeutung)))) — d innen
-// HDF ROM-Speicher d — d/e/i/n/o/r/s/u/w — ROM — Osten Rechts
-export const D_ROM = { id:'d', axis:'d', dir:'Osten Rechts', figur:6, beachtendes:6, pos:{x:1,y:0,z:0}, color:0xff4444, note:'d.rom — d = 6 Figur beachtendes Osten Rechts — W(a(s(d)))' };
+// f.rom — enthält alle ROMs — da sind wir
+export const D_ROM = {id:'d', axis:'d', dir:'Osten Rechts', figur:6, beachtendes:6, pos:{x:1,y:0,z:0}, color:0xff4444, note:'d.rom — d=6 Figur beachtendes Osten Rechts — W(a(s(d)))'};
+export const F_ROM = {id:'f', axis:'a', dir:'Westen Links', figur:6, pos:{x:-1,y:0,z:0}, color:0x44ff44, note:'f.rom — a=6 Figur Westen Links — W(a(s(d))) — Figur'};
+export const Q_ROM = {id:'q', axis:'q', dir:'Quelle', figur:3, pos:{x:0,y:1,z:0}, color:0xffff44, note:'q.rom — Quelle — Drache Mann Mitte Vector Ring — 3↺'};
+export const X_ROM = {id:'x', axis:'X', dir:'BREITE', best:'BEST?AXIS', pos:{x:1,y:0,z:0}, color:0x77ddff, note:'x.rom — BREITE Achse Breite X — BEST?AXIS'};
+export const Y_ROM = {id:'y', axis:'Y', dir:'HOCH', best:'BEST?TMP', pos:{x:0,y:1,z:0}, color:0xff77ff, note:'y.rom — HOCH Achse Höhe Y — BEST?TMP'};
+export const Z_ROM = {id:'z', axis:'Z', dir:'TIEFE', best:'BEST?LAGE', pos:{x:0,y:0,z:1}, color:0x77ff77, note:'z.rom — TIEFE Achse Tiefe Z — BEST?LAGE'};
 
-// f.rom — f = Figur? Westen Links a=6 Figur — f = Figur
-export const F_ROM = { id:'f', axis:'a', dir:'Westen Links', figur:6, pos:{x:-1,y:0,z:0}, color:0x44ff44, note:'f.rom — a=6 Figur Westen Links — W(a(s(d))) — Figur' };
+// = W(a(s(d(himmeldeutung)))) = W=9 Raum Norden Station 9×9=81 81◆, a=6 Figur Westen Links f.rom, s=6 Schach Feld Süden, d=6 beachtendes Osten Rechts d.rom, himmeldeutung Pfeffer Ort 970 PRO MLC 32GB 4000 729 Raum
 
-// q.rom — q = Quelle? Quelle?
-export const Q_ROM = { id:'q', axis:'q', dir:'Quelle', figur:3, pos:{x:0,y:1,z:0}, color:0xffff44, note:'q.rom — Quelle — Drache Mann Mitte Vector Ring — 3↺' };
-
-// x.rom — x = BREITE X — BEST?AXIS
-export const X_ROM = { id:'x', axis:'X', dir:'BREITE', best:'BEST?AXIS', pos:{x:1,y:0,z:0}, color:0x77ddff, note:'x.rom — BREITE Achse Breite X — BEST?AXIS' };
-
-// y.rom — y = HOCH Y — BEST?TMP
-export const Y_ROM = { id:'y', axis:'Y', dir:'HOCH', best:'BEST?TMP', pos:{x:0,y:1,z:0}, color:0xff77ff, note:'y.rom — HOCH Achse Höhe Y — BEST?TMP' };
-
-// z.rom — z = TIEFE Z — BEST?LAGE
-export const Z_ROM = { id:'z', axis:'Z', dir:'TIEFE', best:'BEST?LAGE', pos:{x:0,y:0,z:1}, color:0x77ff77, note:'z.rom — TIEFE Achse Tiefe Z — BEST?LAGE' };
+// d3d kann Höhe Breite Tiefe nehmen wenn anderen beiden sich einig sind wer a und b oder 1 und 2 je nach dem:
+// → F_ROM a=6 Westen Links und D_ROM d=6 Osten Rechts beide Figur 6 = einig über Figur = dann darf X_ROM Y_ROM Z_ROM Höhe Breite Tiefe = Vec3(32.2917,1.23,0.25) = arg Breite X, RIN Höhe Y, xarg Tiefe Z
+// → an.doc.ab.html dokumentiert wer a/b oder 1/2
