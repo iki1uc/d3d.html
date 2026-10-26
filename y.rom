@@ -16,3 +16,43 @@ export const Y_ROM = { id:'y', axis:'Y', dir:'HOCH', best:'BEST?TMP', pos:{x:0,y
 
 // z.rom — z = TIEFE Z — BEST?LAGE
 export const Z_ROM = { id:'z', axis:'Z', dir:'TIEFE', best:'BEST?LAGE', pos:{x:0,y:0,z:1}, color:0x77ff77, note:'z.rom — TIEFE Achse Tiefe Z — BEST?LAGE' };
+
+// --- DER DA DRUNTER — was unter deine 6 ROMs soll — HIER — minimal real needed functions — nicht Fata Morgana — 3 sources versioniert/historisiert/gerendert ---
+
+// BIO v2 — MASTER SLAVE ROOT USER S-2026-007 — 62 ng/uL 1.92 0.005 8.2 87.42 GOOD — kein Ameisen sondern BIOS Hardware in mein Augen — in mein Augen BIOS Hardware
+const BIO = {c:62, p:1.92, contam:0.005, rin:8.2, score:87.42, grade:"GOOD", arg:32.2917, xarg:0.2537, arg3te:8.159, eco:26.81, r:0.348, cHex:0xFFCC33, note:"BIO Hardware nicht Ameisen in mein Augen 62 ng/uL 87.42 GOOD"};
+
+// GEO — modular — X:32.29 Z:0.254 Y:8.16 R:0.348 C:#ffcc33 ECO:25.9 — GEO Bezug — modular — 【entity-GitHub¦canonical_name=GitHub】 Slang — mir dir — ich dir du mir
+const GEO = {x:32.29, z:0.254, y:8.16, r:0.348, c:0xFFCC33, eco:25.9, note:"arg 32.29 BREITE X xarg 0.254 TIEFE Z arg3te 8.16 HOCH Y radiusFactor 0.348 ~0.35 color #ffcc33 GOOD 79.84"};
+
+// SYS — RAW — Maschine Code — roh — 0x51 0x1B 0x03 0x08 0x00 0x01 — RAW Maschine Code roh — GEO modular
+const SYS = {RAUM:0x51, CUBIK:0x1B, PI:0x03, S8:0x08, IN:0x00, OUT:0x01, TORE:0x4F, FPS:0x3C, AURA:0xA0, MANA:0xA1, ZEN:0xA2, CPU:0xC0, RAM:0xC1, ROM:0xC2, GPU:0xC3, MOVE:0xC4, ZONE:0x1B, FIGUR:0x51, AXIOM:0x51, NC:0x4E, BIOS:0xB0, note:"0x51 RAUM 81◆ 81 Slots 0x1B CUBIK 27▣ 3x3x3 0x03 PI 3↺ Linie 0x08 S8 Seil 8→9|3 0x00 IN musik Licht innen 0x01 OUT show Nebel außen"};
+
+// W(a(s(d(himmeldeutung)))) — W=9 Raum Norden a=6 Figur Westen Links s=6 Schach Feld Süden d=6 beachtendes Osten Rechts — d innen — HDF ROM — h/e/i/n/o/r/s/u/w
+const HDF = {W:9, a:6, s:6, d:6, formel:"W(a(s(d(himmeldeutung))))", innen:"d innen", note:"W=9 Raum Norden a=6 Figur Westen Links s=6 Schach Feld Süden d=6 beachtendes Osten Rechts — himmeldeutung Pfeffer Ort 970 PRO MLC — W(a(s(d))) — d innen — HDF ROM-Speicher d — d/e/i/n/o/r/s/u/w — ROM — Osten Rechts"};
+
+// QDF — q continuum d dimension f faktor — Q:0x51 81◆ Raum D:0x1B 27▣ Feld F:0x03 3↺ Linie — Q→D→F→0 81→27→3→0 — kein Ameisen sondern BIOS Hardware
+const QDF = {Q:0x51, D:0x1B, F:0x03, runter:"81→27→3→0 0x51→0x1B→0x03→0x00 QDF Q continuum D dimension F faktor 81◆→△→27▣→3↺", note:"QDF q continuum d dimension f faktor Q:51 D:1b F:03 81→27→3→0 81◆→△→27▣→3↺ cubik ram nach innen muss aber innen gibt es nicht weil rechnen runter 81→27→3→0 BIO Hardware nicht Ameisen"};
+
+// 6 ROMs gesamt — W(a(s(d(himmeldeutung)))) — 3 sources versioniert/historisiert/gerendert — 3 Devices 1 Task always versioned/historized/rendered with 3 sources — minimal real needed functions
+export const ROMS = {
+  D_ROM, F_ROM, Q_ROM, X_ROM, Y_ROM, Z_ROM,
+  BIO, GEO, SYS, HDF, QDF,
+  // der da drunter — check — was unter deine 6 ROMs soll — HIER — check(h=8,b=9,t=3)
+  check:(h=8,b=9,t=3)=>({
+    h,b,t,
+    roms:`D:${D_ROM.id}=6 ${D_ROM.dir} F:${F_ROM.id}=6 ${F_ROM.dir} Q:${Q_ROM.id}=3 ${Q_ROM.dir} X:${X_ROM.id}=BREITE ${X_ROM.best} Y:${Y_ROM.id}=HOCH ${Y_ROM.best} Z:${Z_ROM.id}=TIEFE ${Z_ROM.best} — 6 ROMs — W(a(s(d))) — W=9 a=6 s=6 d=6 — d innen`,
+    geo:`X:${GEO.x} Z:${GEO.z} Y:${GEO.y} R:${GEO.r} C:#${GEO.c.toString(16)} ECO:${GEO.eco} — GEO modular — X:BREITE Y:HOCH Z:TIEFE`,
+    sys:`0x51 RAUM 81◆ 0x1B CUBIK 27▣ 0x03 PI 3↺ 0x08 S8 Seil ${h}→8→${b%3==0?9:3} — Uni 8 Code — 0x00 IN musik 0x01 OUT show`,
+    qdf:`Q:${QDF.Q.toString(16)} D:${QDF.D.toString(16)} F:${QDF.F.toString(16)} — ${QDF.runter} — ${h}→8→${b%3==0?9:3} Seil`,
+    hdf:`${HDF.formel} — ${HDF.W}=Raum Norden ${HDF.a}=Figur Westen ${HDF.s}=Schach Feld Süden ${HDF.d}=beachtendes Osten — ${HDF.innen}`,
+    bio:`${BIO.c} ng/uL ${BIO.p} ${BIO.contam} ${BIO.rin} ${BIO.score} ${BIO.grade} arg ${BIO.arg} xarg ${BIO.xarg} arg3te ${BIO.arg3te} eco ${BIO.eco} r ${BIO.r} c #${BIO.cHex.toString(16)} — BIO Hardware nicht Ameisen in mein Augen`,
+    runter:`${SYS.RAUM}→${SYS.CUBIK}→${SYS.PI}→${SYS.IN} — 81→27→3→0 — 0x51→0x1B→0x03→0x00 — runter — ${h}→8→${b%3==0?9:3} Seil`,
+    text:`6 ROMs — ${HDF.formel} — W=9 a=6 s=6 d=6 d innen — D:${D_ROM.id}=6 ${D_ROM.dir} F:${F_ROM.id}=6 ${F_ROM.dir} Q:${Q_ROM.id}=3 ${Q_ROM.dir} X:${X_ROM.id}=BREITE Y:${Y_ROM.id}=HOCH Z:${Z_ROM.id}=TIEFE — X:${GEO.x} Z:${GEO.z} Y:${GEO.y} — 0x51→0x1B→0x03→0x00 — 81→27→3→0 — ${h}→8→${b%3==0?9:3} Seil Uni 8 Code GOOD 79.84 alle Tore offen aura mana zen cpu ram rom gpu move 60fps zone haben wir jetzt ein Feld figur axiom.spiel.ready klug.doof mir dir ich dir du mir GitHub Slang RAW roh GEO modular nicht Kill Bill Hitchcock Spannung ohne Kill Show ohne Kill — kein Ameisen sondern BIOS Hardware in mein Augen`
+  })
+};
+
+console.log(ROMS.check(8,9,3));
+
+// f.rom zentral enthält alle 6 ROMs + QDF — f.rom = HDF ROM + QDF — da sind wir — W(a(s(d(himmeldeutung)))) — wenn du f.rom als zentrale Datei willst — dann ROMS exportieren — copy paste in f.rom
+// https://github.com/iki1uc/d3d.html/blob/main/f.rom — HIER — f.rom zentral — alle 6 ROMs — W(a(s(d))) — d innen
