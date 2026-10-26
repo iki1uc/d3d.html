@@ -16,3 +16,6 @@ export const Y_ROM = { id:'y', axis:'Y', dir:'HOCH', best:'BEST?TMP', pos:{x:0,y
 
 // z.rom — z = TIEFE Z — BEST?LAGE
 export const Z_ROM = { id:'z', axis:'Z', dir:'TIEFE', best:'BEST?LAGE', pos:{x:0,y:0,z:1}, color:0x77ff77, note:'z.rom — TIEFE Achse Tiefe Z — BEST?LAGE' };
+
+// f.rom zentral enthält alle 6 ROMs — W(a(s(d(himmeldeutung)))) — d innen — da sind wir — 3 sources versioniert/historisiert/gerendert
+export const ROMS = { D_ROM, F_ROM, Q_ROM, X_ROM, Y_ROM, Z_ROM };
